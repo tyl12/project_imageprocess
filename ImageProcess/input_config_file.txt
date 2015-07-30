@@ -1,0 +1,63 @@
+[config]
+
+##***************************pre-processing***************************#
+#LEFT_CROP = 0
+#TOP_CROP = 0
+#RIGHT_CROP = 0
+#BOT_CROP = 0
+
+ROTATE = 0
+
+##***************************frame-count ROI detection***************************#
+#left_Ratio_Min  = 0.5
+#top_Ratio_Min  = 0.5
+#right_Ratio_Max = 1
+#bot_Ratio_Max  = 1
+
+##***************************phase detection***************************#
+#ROIMargin = 5
+
+#ROILeft = 0
+#ROITop = 0
+#ROIRight = 0
+#ROIBot = 0
+
+##camera info
+#CameraFPS = 1000.0
+##lcd info
+#LCDFPS = 60.0
+
+##****************************for common fling/switch case**************************#
+##color space used for phase detection, options: GRAY, BGR, YUV, HLS
+COLOR_SPACE = 'BGR'
+##number of images used to check frame difference threshold
+PIC_NUM_CHECK_DIFF_THRESHOLD = 10
+##specify the noise threshold, take effect only when PIC_NUM_CHECK_DIFF_THRESHOLD is not in range [2,inf]
+NOISE_BASE_THRESHOLD=4
+##long frame threshold, in unit of vsync
+LONE_FRAME_THRESHOLD_FACTOR = 0.3
+##image area scale threadshold used to check changing.
+SCALE_TO_DETECT_DIFF=1000
+
+##phase threshold, in unit of vsync, set to a large value if only start/stop phase switch exists and
+##all other long switch will be taken as long frames.
+PHASE_THRESHOLD_FACTOR = 800000
+
+
+##****************************for motion track**************************#
+## gesture type could be FLING_UP/FLING_DOWN/FLING_LEFT/FLING_RIGHT/ZOOMIN/ZOOMOUT/FADE_IN/FADE_OUT
+GESTURE_TYPE="FLING_UP"
+
+##****************************for debug only**************************#
+##show framediff image with pyplot
+DEBUG_SHOWDIFF = 0
+##show phase/long phase file with pyplot
+DEBUG_SHOWPHASE = 0
+##dump the framediff images in tmpdir/
+DEBUG_DUMPDIFF = 0
+
+##show motion tracking file with pyplot
+DEBUG_SHOWMOTION = 0
+##dump the motion track images in tmpdir/
+DEBUG_DUMPMOTION = 0
+

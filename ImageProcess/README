@@ -1,0 +1,31 @@
+----------------------------------------------------
+INSTALLATION HOWTO:
+1. Install below packages for python environment under windows(7):
+    1>python-2.7.3.msi(mandatory)
+    2>PIL-1.1.7.win32-py2.7.exe(mandatory)
+    3>numpy-1.6.2-win32-superpack-python2.7.exe(mandatory)
+    4>opencv2.4.2.exe (optional)
+    5>matplotlib-1.2.0rc3.win32-py2.7 (optional, only used when debug)
+    Notes: 32bit version shold be used for above packages, as no 64bit opencv python lib was abailable temporarily.
+
+2. If step 1.4 is skipped, pls copy the existing "cv2.pyd" to your python2.7 site-packages folder
+"C:\Python27\Lib\site-packages\".
+
+3. Add "C:\Python27" into windows environment variable "Path".
+
+4. Enjoy it.
+
+----------------------------------------------------
+USAGE HOWTO:
+1. run-time directories hierarchy:
+    working directory: .../workdir/
+    input:
+        source image directory: .../workdir/src/
+        default config file: .../scriptdir/default_config_file.txt
+        input config file: .../workdir/input_config_file.txt
+    output:
+        run-time log file: .../workingdir/log.txt
+        processed image directory: .../workdir/dst/
+        output data file directory: .../workdir/
+
+

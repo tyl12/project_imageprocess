@@ -1,0 +1,153 @@
+[config]
+
+#1.
+#specify the config list need to parse, with the default value and data type,
+#the default value for each entry will be over-writen if new value specified later.
+#2.
+#*key* is case-insensitive and *value* is case-sensitive (actually depends on user)
+#3.
+#the entry marked with "RO" means its value is read only and could only be set in config file, any modification in src code is not permitted.
+#
+CONFIG_LIST=(\
+        ("left_crop",                           0,                "int",            "rw"),   \
+        ("top_crop",                            0,                "int",            "rw"),   \
+        ("right_crop",                          0,                "int",            "rw"),   \
+        ("bot_crop",                            0,                "int",            "rw"),   \
+        ("cropmargin",                          10,               "int",            "ro"),   \
+        ("rotate",                              0,                "float",          "rw"),   \
+        ("left_ratio_min",                      0.5,              "float",          "ro"),   \
+        ("top_ratio_min",                       0.5,              "float",          "ro"),   \
+        ("right_ratio_max",                     1,                "float",          "ro"),   \
+        ("bot_ratio_max",                       1,                "float",          "ro"),   \
+        ("roimargin",                           5,                "int",            "ro"),   \
+        ("roileft",                             0,                "int",            "rw"),   \
+        ("roitop",                              0,                "int",            "rw"),   \
+        ("roiright",                            0,                "int",            "rw"),   \
+        ("roibot",                              0,                "int",            "rw"),   \
+        ("lcdfps",                              60.0,             "float",          "ro"),   \
+        ("lcd_type",                            'NULL',           "str",            "ro"),   \
+        ("color_space",                         'GRAY',           "str",            "ro"),   \
+        ("pic_num_check_diff_threshold",        10,               "int",            "ro"),   \
+        ("noise_base_threshold",                4,                "int",            "rw"),   \
+        ("scale_to_detect_diff",                1000,             "int",            "ro"),   \
+        ("lone_frame_threshold_factor",         0.5,              "float",          "ro"),   \
+        ("phase_threshold_factor",              8,                "float",          "ro"),   \
+        ("gesture_type",                        'FLING_UP',       "str",            "ro"),   \
+        ("touch_start",                         'onSingleTapUp',  "str",            "ro"),   \
+        ("phase_filter_h_winlen",               3,                "int",            "ro"),   \
+        ("UXTool",                              0,                "int",            "ro"),   \
+        ("UXTune",                              0,                "int",            "ro"),   \
+        ("camerafps",                           1000.0,           "float",          "ro"),   \
+        ("camera_resample_factor",              1,                "int",            "ro"),   \
+        ("camera_capture_width",                816,              "int",            "ro"),   \
+        ("camera_capture_height",               608,              "int",            "ro"),   \
+        ("camera_capture_duration",             4000,             "int",            "ro"),   \
+        ("camera_calibrate_duration",           20,               "int",            "ro"),   \
+        ("screen_width",                        600,              "int",            "ro"),   \
+        ("screen_height",                       1024,             "int",            "ro"),   \
+        ("pic_width",                           0,                "int",            "rw"),   \
+        ("pic_height",                          0,                "int",            "rw"),   \
+        ("debug_showdiff",                      0,                "int",            "ro"),   \
+        ("debug_showphase",                     0,                "int",            "ro"),   \
+        ("debug_dumpdiff",                      0,                "int",            "ro"),   \
+        ("debug_dumptouch",                     1,                "int",            "ro"),   \
+        ("debug_showmotion",                    0,                "int",            "ro"),   \
+        ("debug_dumpmotion",                    0,                "int",            "ro")    \
+        )
+
+##some examples & comments:
+
+##***************************pre-processing***************************#
+##specify the crop region in unit of pixel count, <=0 if wanna use auto crop detection
+#LEFT_CROP = 0
+#TOP_CROP = 0
+#RIGHT_CROP = 0
+#BOT_CROP = 0
+
+##crop margin, normally used for auto-detected crop region, >=0
+#CropMargin = 10
+
+##counter-clockwise, 0, 90, 180, 270
+#ROTATE = 0
+
+##***************************frame-count ROI detection***************************#
+##specify the rough ROI position for framecount display on *PHONE screen*(or after crop & rotate),
+##which will increase the precision of ROI detection
+## for top-left of LCD,  (0,0) (0.5,0.5) 
+## for top-right of LCD, (0.5,0) (1,0.5) 
+## for bot-left of LCD,  (0,0.5) (0.5,1) 
+## for bot-right of LCD, (0.5,0.5) (1,1) 
+## etc.
+
+##***************************phase detection***************************#
+##ROI margin for croping frame-counter display region when do phase detection
+#ROIMargin = 5
+
+##manually specify the ROI region (!before crop & rotate, in unit of pixel count) if available,
+##specify all zero if wanna use auto ROI detection
+#ROILeft = 0
+#ROITop = 0
+#ROIRight = 0
+#ROIBot = 0
+
+##camera info
+#CameraFPS = 1000.0
+
+##used to resample captured images. really used frames rate = cameraFPS / camera_resample_factor
+##it means if camera_resample_factor is larger than 1, the original camera frames will be resampled per camera_resample_factor frames.
+#camera_resample_factor = 1
+
+##lcd info
+#LCDFPS = 60.0
+
+#camera_capture_duration, specify the camera one time capture duration, in unit ms
+#camera_calibrate_duration, specify the camera one time capture duration for calibration, in unit ms
+
+## whether framecount display is enabled on screen(whether to process framecount during image processing)
+#PROCESS_FRAMECOUNT=1
+
+##****************************for common fling/switch case**************************#
+##color space used for phase detection, options: GRAY, BGR, YUV, HLS
+#COLOR_SPACE = 'BGR'
+##long frame threshold, in unit of vsync
+#LONE_FRAME_THRESHOLD_FACTOR = 0.3
+
+
+##specify the number of pictures for noise detect, in range [2,inf]
+#pic_num_check_diff_threshold = 10
+
+##specify the noise base threshold for image changing detection.
+## Notes: if pic_num_check_diff_threshold is not in range [2,inf], noise_base_threshold will be used to initialize the noise threshold, 
+## otherwise, noise_base_threshold will NOT be adopted and pic_num_check_diff_threshold will be processed to find the noise threshold.
+#noise_base_threshold = 4
+
+##specify the area scale of the image to detect the image difference, when the count of the
+##changing pixel ratio larger than image_area/scale_to_detect_diff, it will be taken as one image switching
+##the less such value specified, the more noise-sensensitive it will be.
+#SCALE_TO_DETECT_DIFF=1000
+
+##phase threshold, in unit of vsync, set to a large value if only start/stop phase switch exists and
+##all other long switch will be taken as long frames.
+#PHASE_THRESHOLD_FACTOR = 800000
+
+
+##****************************for motion track**************************#
+## gesture type could be FLING_UP/FLING_DOWN/FLING_LEFT/FLING_RIGHT/ZOOMIN/ZOOMOUT/FADE_IN/FADE_OUT
+#GESTURE_TYPE="FLING_UP"
+
+## touch start point, could be onDown/onSingleTapUp/onSingleTapConfirmed
+#touch_start='onSingleTapUp'
+
+##****************************for debug only**************************#
+##show framediff image with pyplot
+#DEBUG_SHOWDIFF = 0
+##show phase/long phase file with pyplot
+#DEBUG_SHOWPHASE = 0
+##dump the framediff images in tmpdir/
+#DEBUG_DUMPPHASE = 0
+
+##show motion tracking file with pyplot
+#DEBUG_SHOWMOTION = 0
+##dump the motion track images in tmpdir/
+#DEBUG_DUMPMOTION = 0
+
